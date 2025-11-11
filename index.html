@@ -3,94 +3,106 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>DewaRuci Merch - Kurta & Kaos Premium</title>
+  <title>DewaRuci Merch - Kurta & Kaos Premium Yogyakarta</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@400;500&display=swap');
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { 
       font-family: 'Roboto', sans-serif; 
-      background: #0f0f0f; 
+      background: #0a0a0a url('https://drive.google.com/uc?id=17qEmuIvQnm6Oq2UhfXNK9l4mdUOh_A75') no-repeat center center fixed;
+      background-size: cover;
       color: #e0e0e0; 
       line-height: 1.6; 
-      transition: all 0.5s ease;
+      position: relative;
     }
-    .container { max-width: 1400px; margin: 0 auto; padding: 1rem; }
+    body::before {
+      content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.75); backdrop-filter: blur(3px); z-index: -1;
+    }
+    .container { max-width: 1400px; margin: 0 auto; padding: 1rem; position: relative; z-index: 1; }
 
     /* Header */
     .header {
       display: flex; justify-content: space-between; align-items: center;
-      padding: 1rem 2rem; background: #1a1a1a; box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-      position: sticky; top: 0; z-index: 100; border-bottom: 1px solid #333;
+      padding: 1.2rem 2rem; background: rgba(26,26,26,0.9); backdrop-filter: blur(15px);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.6); position: sticky; top: 0; z-index: 100;
+      border-bottom: 1px solid rgba(255,215,0,0.3); border-radius: 0 0 20px 20px;
     }
-    .logo img { height: 50px; }
-    .contact-info { font-size: 0.9rem; text-align: right; }
-    .contact-info a { color: #25d366; text-decoration: none; font-weight: 500; }
+    .logo img { height: 55px; filter: drop-shadow(0 0 8px rgba(255,215,0,0.4)); }
+    .contact-info { font-size: 0.95rem; text-align: right; }
+    .contact-info a { color: #25d366; text-decoration: none; font-weight: 600; }
 
-    /* Hero */
-    .hero {
-      position: relative; height: 500px; overflow: hidden; border-radius: 20px; margin: 2rem 0;
-      box-shadow: 0 15px 40px rgba(0,0,0,0.6);
+    /* Hero Catalog */
+    .hero-catalog {
+      margin: 2.5rem 0; text-align: center; padding: 2rem;
+      background: rgba(26,26,26,0.85); border-radius: 25px;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.7); border: 1px solid rgba(255,215,0,0.2);
     }
-    .hero img { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.7); }
+    .hero-catalog img {
+      width: 100%; max-width: 900px; border-radius: 20px;
+      box-shadow: 0 12px 30px rgba(255,215,0,0.2); border: 2px solid #ffd700;
+    }
     .hero-text {
-      position: absolute; bottom: 40px; left: 40px; background: rgba(0,0,0,0.7);
-      padding: 1.5rem 2.5rem; border-radius: 15px; backdrop-filter: blur(10px);
-      border: 1px solid rgba(255,215,0,0.3);
+      margin-top: 1.5rem;
+      background: rgba(0,0,0,0.7); padding: 1.5rem 2rem; border-radius: 15px;
+      display: inline-block; backdrop-filter: blur(8px);
     }
-    .hero-text h1 { font-family: 'Playfair Display', serif; font-size: 3rem; color: #ffd700; margin-bottom: 0.5rem; }
+    .hero-text h1 { 
+      font-family: 'Playfair Display', serif; font-size: 2.8rem; color: #ffd700; 
+      margin-bottom: 0.5rem; text-shadow: 0 0 15px rgba(255,215,0,0.4);
+    }
     .hero-text p { font-size: 1.2rem; color: #fff; }
 
-    /* Filter */
-    .filter-bar { display: flex; justify-content: center; gap: 1rem; margin: 2rem 0; flex-wrap: wrap; }
-    .filter-btn { 
-      padding: 0.8rem 1.8rem; background: #1a1a1a; border: 2px solid #ffd700; color: #ffd700;
-      border-radius: 50px; cursor: pointer; font-weight: 500; transition: all 0.4s ease;
-      box-shadow: 0 4px 15px rgba(255,215,0,0.2);
-    }
-    .filter-btn.active, .filter-btn:hover { background: #ffd700; color: #1a1a1a; }
-
-    /* Produk */
+    /* Produk Grid */
     .products-grid { 
-      display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 2rem; padding: 1rem;
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 2.2rem; padding: 1.5rem;
     }
     .product-card { 
-      background: #1a1a1a; border-radius: 20px; overflow: hidden; 
-      box-shadow: 0 10px 30px rgba(0,0,0,0.5); transition: all 0.4s ease; text-align: center;
-      border: 1px solid #333;
+      background: rgba(26,26,26,0.9); border-radius: 22px; overflow: hidden; 
+      box-shadow: 0 12px 35px rgba(0,0,0,0.6); transition: all 0.5s ease; text-align: center;
+      border: 1px solid rgba(255,215,0,0.25); backdrop-filter: blur(10px);
     }
-    .product-card:hover { transform: translateY(-12px); box-shadow: 0 20px 40px rgba(255,215,0,0.15); }
-    .product-card img { width: 100%; height: 350px; object-fit: cover; }
-    .product-info { padding: 1.5rem; }
+    .product-card:hover { 
+      transform: translateY(-15px); 
+      box-shadow: 0 25px 50px rgba(255,215,0,0.2); 
+      border-color: #ffd700;
+    }
+    .product-card img { width: 100%; height: 380px; object-fit: cover; }
+    .product-info { padding: 1.8rem; }
     .product-info h3 { 
-      font-family: 'Playfair Display', serif; font-size: 1.4rem; margin-bottom: 0.8rem; color: #fff;
+      font-family: 'Playfair Display', serif; font-size: 1.45rem; margin-bottom: 0.8rem; color: #fff;
     }
-    .price-old { text-decoration: line-through; color: #888; font-size: 1rem; }
-    .price-new { font-weight: 700; color: #ffd700; font-size: 1.4rem; margin: 0.5rem 0; }
+    .price-old { text-decoration: line-through; color: #777; font-size: 1.05rem; }
+    .price-new { font-weight: 700; color: #ffd700; font-size: 1.5rem; margin: 0.6rem 0; }
     .discount-badge { 
-      background: #ff4444; color: #fff; padding: 0.3rem 0.8rem; border-radius: 20px; 
-      font-size: 0.9rem; font-weight: bold; display: inline-block; margin-bottom: 1rem;
+      background: linear-gradient(135deg, #ff4444, #cc0000); color: #fff; 
+      padding: 0.4rem 1rem; border-radius: 25px; font-size: 0.95rem; font-weight: bold;
+      display: inline-block; margin-bottom: 1.2rem; box-shadow: 0 4px 10px rgba(255,0,0,0.3);
     }
     .btn-buy { 
-      display: block; background: #25d366; color: #fff; padding: 1rem; 
-      text-decoration: none; font-weight: 600; border-radius: 0 0 20px 20px;
-      transition: background 0.4s ease;
+      display: block; background: linear-gradient(135deg, #25d366, #128c7e); 
+      color: #fff; padding: 1.1rem; text-decoration: none; font-weight: 600; 
+      border-radius: 0 0 22px 22px; transition: all 0.4s ease; font-size: 1.05rem;
     }
-    .btn-buy:hover { background: #128c7e; }
+    .btn-buy:hover { background: linear-gradient(135deg, #128c7e, #0d6e5c); }
 
     /* Footer */
     .footer { 
-      text-align: center; padding: 3rem 1rem; background: #111; margin-top: 4rem; 
-      border-top: 1px solid #333; font-size: 0.9rem; color: #888;
+      text-align: center; padding: 3.5rem 1rem; background: rgba(17,17,17,0.95); 
+      margin-top: 5rem; border-top: 1px solid rgba(255,215,0,0.2); 
+      font-size: 0.95rem; color: #aaa; backdrop-filter: blur(10px);
     }
-    .footer a { color: #25d366; text-decoration: none; }
+    .footer a { color: #25d366; text-decoration: none; font-weight: 500; }
 
     /* Responsif */
     @media (max-width: 768px) {
-      .hero { height: 300px; }
-      .hero-text h1 { font-size: 2rem; }
-      .products-grid { grid-template-columns: 1fr; }
-      .filter-btn { padding: 0.7rem 1.2rem; font-size: 0.9rem; }
+      .header { padding: 1rem; flex-direction: column; text-align: center; gap: 0.5rem; }
+      .logo img { height: 45px; }
+      .hero-catalog img { border-radius: 15px; }
+      .hero-text h1 { font-size: 2.2rem; }
+      .products-grid { grid-template-columns: 1fr; padding: 1rem; }
+      .product-card img { height: 300px; }
     }
   </style>
 </head>
@@ -108,62 +120,50 @@
     </div>
   </header>
 
-  <!-- Hero -->
-  <div class="hero">
-    <img src="https://drive.google.com/uc?id=1HXEvC-SZ0Z5XL_NowHXrFyY51PCsFv59" alt="Hero">
+  <!-- Hero Catalog -->
+  <div class="hero-catalog">
+    <img src="https://drive.google.com/uc?id=1z9veu5tOxBeATUg79dLJBrFWZbl6iRWY" alt="Catalog DewaRuci">
     <div class="hero-text">
       <h1>DewaRuci Merch</h1>
-      <p>Kurta & Kaos Premium Yogyakarta</p>
+      <p>Kurta & Kaos Premium — Diskon Gila Hingga 43%!</p>
     </div>
-  </div>
-
-  <!-- Filter -->
-  <div class="filter-bar">
-    <button class="filter-btn active" data-filter="all">Semua</button>
-    <button class="filter-btn" data-filter="kurta">Kurta</button>
-    <button class="filter-btn" data-filter="kaos">Kaos</button>
   </div>
 
   <!-- Produk Grid -->
   <div class="products-grid">
     <!-- Produk 1 -->
-    <div class="product-card" data-category="kurta">
-      <img src="https://drive.google.com/uc?id=1i9k8j7k8j9k9j0k9j0k9j0k9j0k9j0k9" alt="Kurta 1"> <!-- Ganti ID -->
+    <div class="product-card">
+      <img src="https://drive.google.com/uc?id=1z9veu5tOxBeATUg79dLJBrFWZbl6iRWY" alt="Kurta DewaRuci">
       <div class="product-info">
         <h3>Kurta Pria Premium</h3>
         <p class="price-old">Rp 149.000</p>
         <p class="price-new">Rp 85.000</p>
         <span class="discount-badge">-43%</span>
-        <a href="https://wa.me/6281973174906?text=Halo,%20saya%20mau%20pesan%20Kurta%20Pria%20Premium%20-%20Rp%2085.000" class="btn-buy" target="_blank">Chat WA</a>
+        <a href="https://wa.me/6281973174906?text=Halo%20Admin%20DewaRuci,%20saya%20mau%20pesan%20Kurta%20Pria%20Premium%20-%20Rp%2085.000" class="btn-buy" target="_blank">Pesan via WhatsApp</a>
       </div>
     </div>
 
-    <!-- Tambah 7 produk lain di sini (sama formatnya) -->
+    <!-- Produk 2 -->
+    <div class="product-card">
+      <img src="https://drive.google.com/uc?id=1z9veu5tOxBeATUg79dLJBrFWZbl6iRWY" alt="Kaos DewaRuci">
+      <div class="product-info">
+        <h3>Kaos DewaRuci Edisi Terbatas</h3>
+        <p class="price-old">Rp 149.000</p>
+        <p class="price-new">Rp 85.000</p>
+        <span class="discount-badge">-43%</span>
+        <a href="https://wa.me/6281973174906?text=Halo%20Admin%20DewaRuci,%20saya%20mau%20pesan%20Kaos%20Edisi%20Terbatas%20-%20Rp%2085.000" class="btn-buy" target="_blank">Pesan via WhatsApp</a>
+      </div>
+    </div>
+
+    <!-- Tambah produk lain dengan copy-paste card ini -->
   </div>
 
   <!-- Footer -->
   <footer class="footer">
-    <p>© 2025 DewaRuci Merch — Yogyakarta</p>
+    <p>© 2025 DewaRuci Merch — Handmade with Love in Yogyakarta</p>
     <p>Kontak: <a href="https://wa.me/6281973174906">Admin DewaRuci - 081973174906</a></p>
   </footer>
 </div>
-
-<script>
-  // Filter
-  document.querySelectorAll
-
-('.filter-btn').forEach(btn => {
-    btn.addEventListener('click', function() {
-      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-      this.classList.add('active');
-      const filter = this.getAttribute('data-filter');
-      document.querySelectorAll('.product-card').forEach(card => {
-        const cat = card.getAttribute('data-category');
-        card.style.display = (filter === 'all' || cat === filter) ? 'block' : 'none';
-      });
-    });
-  });
-</script>
 
 </body>
 </html>
