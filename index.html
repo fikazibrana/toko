@@ -10,7 +10,7 @@
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { 
       font-family: 'Roboto', sans-serif; 
-      background: #0a0a0a url('https://drive.google.com/uc?id=17qEmuIvQnm6Oq2UhfXNK9l4mdUOh_A75') no-repeat center center fixed;
+      background: #0a0a0a url('https://raw.githubusercontent.com/fikazibrana/toko/e5073bc488f8dee7b55bfec12dd2d80fea66b6f2/DSCF3794-3.jpg') no-repeat center center fixed;
       background-size: cover;
       color: #e0e0e0; 
       line-height: 1.6; 
@@ -36,29 +36,32 @@
     .contact-info { font-size: 0.98rem; text-align: right; }
     .contact-info a { color: #25d366; text-decoration: none; font-weight: 600; }
 
-    /* Hero Catalog */
-    .hero-catalog {
-      margin: 3rem 0; text-align: center; padding: 2.5rem;
-      background: rgba(26,26,26,0.88); border-radius: 28px;
-      box-shadow: 0 18px 45px rgba(0,0,0,0.75); border: 1px solid rgba(255,215,0,0.25);
+    /* Hero Catalog - 2 KOLOM DI MOBILE */
+    .catalog-grid {
+      display: grid; 
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+      gap: 1.5rem; 
+      margin: 3rem 0; 
+      padding: 0 1rem;
     }
-    .hero-catalog img {
-      width: 100%; max-width: 950px; height: auto;
-      border-radius: 22px; object-fit: cover;
-      box-shadow: 0 15px 35px rgba(255,215,0,0.25); border: 3px solid #ffd700;
-      transition: transform 0.5s ease;
+    .catalog-card {
+      background: rgba(26,26,26,0.88); border-radius: 22px; overflow: hidden;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.7); border: 1px solid rgba(255,215,0,0.25);
+      transition: transform 0.4s ease;
     }
-    .hero-catalog img:hover { transform: scale(1.02); }
-    .hero-text {
-      margin-top: 1.8rem;
-      background: rgba(0,0,0,0.75); padding: 1.8rem 2.5rem; border-radius: 18px;
-      display: inline-block; backdrop-filter: blur(10px); border: 1px solid rgba(255,215,0,0.3);
+    .catalog-card:hover { transform: translateY(-10px); }
+    .catalog-card img {
+      width: 100%; height: auto; min-height: 250px; object-fit: cover;
+      border-bottom: 3px solid #ffd700;
     }
-    .hero-text h1 { 
-      font-family: 'Playfair Display', serif; font-size: 3rem; color: #ffd700; 
-      margin-bottom: 0.6rem; text-shadow: 0 0 18px rgba(255,215,0,0.5);
+    .catalog-text {
+      padding: 1.5rem; text-align: center;
     }
-    .hero-text p { font-size: 1.25rem; color: #fff; font-weight: 500; }
+    .catalog-text h1 { 
+      font-family: 'Playfair Display', serif; font-size: 2.2rem; color: #ffd700; 
+      margin-bottom: 0.5rem; text-shadow: 0 0 15px rgba(255,215,0,0.4);
+    }
+    .catalog-text p { font-size: 1.1rem; color: #fff; }
 
     /* Produk Grid */
     .products-grid { 
@@ -76,7 +79,7 @@
     }
     .product-card img { 
       width: 100%; height: 400px; max-width: 100%; 
-      object-fit: cover; border-bottom: 2px solid #ffd700; 
+      object-fit: cover; object-position: center; border-bottom: 2px solid #ffd700; 
     }
     .product-info { padding: 2rem; }
     .product-info h3 { 
@@ -104,39 +107,27 @@
     }
     .footer a { color: #25d366; text-decoration: none; font-weight: 500; }
 
-    /* Responsif Mobile - FIT PERFECT */
+    /* RESPONSIVE - 2 KOLOM DI MOBILE */
     @media (max-width: 768px) {
       .header { padding: 1rem; flex-direction: column; gap: 0.8rem; text-align: center; }
-      .logo img { height: 48px; max-width: 200px; }
-      .hero-catalog { padding: 1.5rem; margin: 2rem 0; }
-      .hero-catalog img { 
-        max-width: 100%; height: auto; border-radius: 18px; 
-        object-fit: cover; min-height: 250px;
+      .logo img { height: 48px; max-width: 180px; }
+      .catalog-grid { 
+        grid-template-columns: 1fr 1fr; /* 2 KOLOM DI HP */
+        gap: 1rem; padding: 0 0.5rem;
       }
-      .hero-text h1 { font-size: 2.3rem; }
-      .hero-text p { font-size: 1.1rem; }
-      .products-grid { 
-        grid-template-columns: 1fr; gap: 1.5rem; padding: 1rem; 
-      }
-      .product-card { 
-        margin: 0 auto; max-width: 100%; 
-      }
-      .product-card img { 
-        height: 280px; max-width: 100%; object-fit: cover; 
-      }
+      .catalog-card img { min-height: 180px; }
+      .catalog-text h1 { font-size: 1.6rem; }
+      .catalog-text p { font-size: 0.95rem; }
+      .products-grid { grid-template-columns: 1fr; padding: 1rem; gap: 1.5rem; }
+      .product-card img { height: 280px; }
       .product-info { padding: 1.5rem; }
       .product-info h3 { font-size: 1.3rem; }
       .price-new { font-size: 1.4rem; }
-      .btn-buy { padding: 1rem; font-size: 1rem; }
     }
 
     @media (max-width: 480px) {
-      .container { padding: 0.5rem; }
-      .hero-catalog { padding: 1rem; }
-      .hero-text { padding: 1.2rem 1.5rem; }
-      .hero-text h1 { font-size: 1.8rem; }
-      .products-grid { padding: 0.5rem; gap: 1rem; }
-      .product-card img { height: 240px; }
+      .catalog-grid { grid-template-columns: 1fr; /* 1 KOLOM DI HP KECIL */ }
+      .catalog-card img { min-height: 200px; }
     }
   </style>
 </head>
@@ -146,7 +137,7 @@
   <!-- Header -->
   <header class="header">
     <div class="logo">
-      <img src="https://drive.google.com/uc?id=1Qltf_10ru65Zjm5lCArQOVppaQ4GYqi3" alt="DewaRuci Logo" onerror="this.src='https://via.placeholder.com/150x50/ffd700/000000?text=Logo'">
+      <img src="https://raw.githubusercontent.com/fikazibrana/toko/e5073bc488f8dee7b55bfec12dd2d80fea66b6f2/BACK.png" alt="DewaRuci Logo">
     </div>
     <div class="contact-info">
       <div>Admin DewaRuci</div>
@@ -154,12 +145,21 @@
     </div>
   </header>
 
-  <!-- Hero Catalog -->
-  <div class="hero-catalog">
-    <img src="https://drive.google.com/uc?id=1z9veu5tOxBeATUg79dLJBrFWZbl6iRWY" alt="DewaRuci Catalog" onerror="this.src='https://via.placeholder.com/800x600/1a1a1a/ffffff?text=Catalog'">
-    <div class="hero-text">
-      <h1>DewaRuci Merch</h1>
-      <p>Premium Collection — Diskon Hingga 43%!</p>
+  <!-- Catalog Grid - 2 KOLOM DI MOBILE -->
+  <div class="catalog-grid">
+    <div class="catalog-card">
+      <img src="https://raw.githubusercontent.com/fikazibrana/toko/e5073bc488f8dee7b55bfec12dd2d80fea66b6f2/DSCF3783.jpg" alt="Catalog 1">
+      <div class="catalog-text">
+        <h1>DewaRuci Merch</h1>
+        <p>Premium Collection</p>
+      </div>
+    </div>
+    <div class="catalog-card">
+      <img src="https://raw.githubusercontent.com/fikazibrana/toko/e5073bc488f8dee7b55bfec12dd2d80fea66b6f2/DSCF3783.jpg" alt="Catalog 2">
+      <div class="catalog-text">
+        <h1>Diskon 43%</h1>
+        <p>Rp 85.000</p>
+      </div>
     </div>
   </div>
 
@@ -167,29 +167,17 @@
   <div class="products-grid">
     <!-- Produk 1 -->
     <div class="product-card">
-      <img src="https://drive.google.com/uc?id=1z9veu5tOxBeATUg79dLJBrFWZbl6iRWY" alt="DewaRuci Item 1" onerror="this.src='https://via.placeholder.com/300x400/1a1a1a/ffffff?text=Item+1'">
+      <img src="https://raw.githubusercontent.com/fikazibrana/toko/e5073bc488f8dee7b55bfec12dd2d80fea66b6f2/DSCF3783.jpg" alt="Premium Item">
       <div class="product-info">
         <h3>Premium Item</h3>
         <p class="price-old">Rp 149.000</p>
         <p class="price-new">Rp 85.000</p>
         <span class="discount-badge">-43%</span>
-        <a href="https://wa.me/6281973174906?text=Halo%20Admin%20DewaRuci,%20saya%20mau%20pesan%20Premium%20Item%20-%20Rp%2085.000" class="btn-buy" target="_blank">Pesan via WhatsApp</a>
+        <a href="https://wa.me/6281973174906?text=Pesan+Premium+Item" class="btn-buy" target="_blank">Pesan via WhatsApp</a>
       </div>
     </div>
 
-    <!-- Produk 2 -->
-    <div class="product-card">
-      <img src="https://drive.google.com/uc?id=1z9veu5tOxBeATUg79dLJBrFWZbl6iRWY" alt="DewaRuci Item 2" onerror="this.src='https://via.placeholder.com/300x400/1a1a1a/ffffff?text=Item+2'">
-      <div class="product-info">
-        <h3>Edisi Spesial</h3>
-        <p class="price-old">Rp 149.000</p>
-        <p class="price-new">Rp 85.000</p>
-        <span class="discount-badge">-43%</span>
-        <a href="https://wa.me/6281973174906?text=Halo%20Admin%20DewaRuci,%20saya%20mau%20pesan%20Edisi%20Spesial%20-%20Rp%2085.000" class="btn-buy" target="_blank">Pesan via WhatsApp</a>
-      </div>
-    </div>
-
-    <!-- Tambah produk lain dengan copy-paste card ini & ganti src img -->
+    <!-- Tambah produk lain di sini -->
   </div>
 
   <!-- Footer -->
