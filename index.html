@@ -29,7 +29,10 @@
       box-shadow: 0 5px 25px rgba(0,0,0,0.7); position: sticky; top: 0; z-index: 100;
       border-bottom: 1px solid rgba(255,215,0,0.35); border-radius: 0 0 22px 22px;
     }
-    .logo img { height: 58px; filter: drop-shadow(0 0 10px rgba(255,215,0,0.5)); }
+    .logo img { 
+      height: 58px; max-width: 100%; width: auto; 
+      filter: drop-shadow(0 0 10px rgba(255,215,0,0.5)); 
+    }
     .contact-info { font-size: 0.98rem; text-align: right; }
     .contact-info a { color: #25d366; text-decoration: none; font-weight: 600; }
 
@@ -40,7 +43,8 @@
       box-shadow: 0 18px 45px rgba(0,0,0,0.75); border: 1px solid rgba(255,215,0,0.25);
     }
     .hero-catalog img {
-      width: 100%; max-width: 950px; border-radius: 22px;
+      width: 100%; max-width: 950px; height: auto;
+      border-radius: 22px; object-fit: cover;
       box-shadow: 0 15px 35px rgba(255,215,0,0.25); border: 3px solid #ffd700;
       transition: transform 0.5s ease;
     }
@@ -70,7 +74,10 @@
       box-shadow: 0 30px 60px rgba(255,215,0,0.25); 
       border-color: #ffd700;
     }
-    .product-card img { width: 100%; height: 400px; object-fit: cover; border-bottom: 2px solid #ffd700; }
+    .product-card img { 
+      width: 100%; height: 400px; max-width: 100%; 
+      object-fit: cover; border-bottom: 2px solid #ffd700; 
+    }
     .product-info { padding: 2rem; }
     .product-info h3 { 
       font-family: 'Playfair Display', serif; font-size: 1.5rem; margin-bottom: 1rem; color: #fff;
@@ -97,15 +104,39 @@
     }
     .footer a { color: #25d366; text-decoration: none; font-weight: 500; }
 
-    /* Responsif */
+    /* Responsif Mobile - FIT PERFECT */
     @media (max-width: 768px) {
-      .header { padding: 1rem; flex-direction: column; gap: 0.8rem; }
-      .logo img { height: 48px; }
+      .header { padding: 1rem; flex-direction: column; gap: 0.8rem; text-align: center; }
+      .logo img { height: 48px; max-width: 200px; }
       .hero-catalog { padding: 1.5rem; margin: 2rem 0; }
-      .hero-catalog img { border-radius: 18px; }
+      .hero-catalog img { 
+        max-width: 100%; height: auto; border-radius: 18px; 
+        object-fit: cover; min-height: 250px;
+      }
       .hero-text h1 { font-size: 2.3rem; }
-      .products-grid { grid-template-columns: 1fr; padding: 1rem; }
-      .product-card img { height: 320px; }
+      .hero-text p { font-size: 1.1rem; }
+      .products-grid { 
+        grid-template-columns: 1fr; gap: 1.5rem; padding: 1rem; 
+      }
+      .product-card { 
+        margin: 0 auto; max-width: 100%; 
+      }
+      .product-card img { 
+        height: 280px; max-width: 100%; object-fit: cover; 
+      }
+      .product-info { padding: 1.5rem; }
+      .product-info h3 { font-size: 1.3rem; }
+      .price-new { font-size: 1.4rem; }
+      .btn-buy { padding: 1rem; font-size: 1rem; }
+    }
+
+    @media (max-width: 480px) {
+      .container { padding: 0.5rem; }
+      .hero-catalog { padding: 1rem; }
+      .hero-text { padding: 1.2rem 1.5rem; }
+      .hero-text h1 { font-size: 1.8rem; }
+      .products-grid { padding: 0.5rem; gap: 1rem; }
+      .product-card img { height: 240px; }
     }
   </style>
 </head>
@@ -115,7 +146,7 @@
   <!-- Header -->
   <header class="header">
     <div class="logo">
-      <img src="https://drive.google.com/uc?id=1Qltf_10ru65Zjm5lCArQOVppaQ4GYqi3" alt="DewaRuci Logo">
+      <img src="https://drive.google.com/uc?id=1Qltf_10ru65Zjm5lCArQOVppaQ4GYqi3" alt="DewaRuci Logo" onerror="this.src='https://via.placeholder.com/150x50/ffd700/000000?text=Logo'">
     </div>
     <div class="contact-info">
       <div>Admin DewaRuci</div>
@@ -125,7 +156,7 @@
 
   <!-- Hero Catalog -->
   <div class="hero-catalog">
-    <img src="https://drive.google.com/uc?id=1z9veu5tOxBeATUg79dLJBrFWZbl6iRWY" alt="DewaRuci Catalog">
+    <img src="https://drive.google.com/uc?id=1z9veu5tOxBeATUg79dLJBrFWZbl6iRWY" alt="DewaRuci Catalog" onerror="this.src='https://via.placeholder.com/800x600/1a1a1a/ffffff?text=Catalog'">
     <div class="hero-text">
       <h1>DewaRuci Merch</h1>
       <p>Premium Collection — Diskon Hingga 43%!</p>
@@ -136,7 +167,7 @@
   <div class="products-grid">
     <!-- Produk 1 -->
     <div class="product-card">
-      <img src="https://drive.google.com/uc?id=1z9veu5tOxBeATUg79dLJBrFWZbl6iRWY" alt="DewaRuci Item 1">
+      <img src="https://drive.google.com/uc?id=1z9veu5tOxBeATUg79dLJBrFWZbl6iRWY" alt="DewaRuci Item 1" onerror="this.src='https://via.placeholder.com/300x400/1a1a1a/ffffff?text=Item+1'">
       <div class="product-info">
         <h3>Premium Item</h3>
         <p class="price-old">Rp 149.000</p>
@@ -148,7 +179,7 @@
 
     <!-- Produk 2 -->
     <div class="product-card">
-      <img src="https://drive.google.com/uc?id=1z9veu5tOxBeATUg79dLJBrFWZbl6iRWY" alt="DewaRuci Item 2">
+      <img src="https://drive.google.com/uc?id=1z9veu5tOxBeATUg79dLJBrFWZbl6iRWY" alt="DewaRuci Item 2" onerror="this.src='https://via.placeholder.com/300x400/1a1a1a/ffffff?text=Item+2'">
       <div class="product-info">
         <h3>Edisi Spesial</h3>
         <p class="price-old">Rp 149.000</p>
@@ -158,7 +189,7 @@
       </div>
     </div>
 
-    <!-- Tambah produk lain dengan copy-paste -->
+    <!-- Tambah produk lain dengan copy-paste card ini & ganti src img -->
   </div>
 
   <!-- Footer -->
