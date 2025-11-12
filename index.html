@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>DewaRuci Merch - Premium Collection</title>
+  <title>DewaRuci Merch - Special Price</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <style>
@@ -15,8 +15,7 @@
       background-size: cover; color: #e0e0e0; line-height: 1.6; position: relative; transition: all 0.5s ease;
     }
     body.light-mode {
-      background: #f5f5f5 url('https://via.placeholder.com/1920x1080/f5f5f5/cccccc?text=Light+BG') no-repeat center center fixed;
-      color: #333;
+      background: #f5f5f5; color: #333;
     }
     body::before {
       content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
@@ -41,15 +40,66 @@
     .contact-info { font-size: 0.98rem; text-align: right; }
     .contact-info a { color: #25d366; text-decoration: none; font-weight: 600; }
 
-    /* Dark Mode Toggle */
-    .dark-toggle {
-      position: fixed; bottom: 20px; right: 20px; z-index: 1000;
-      background: #333; color: #fff; width: 50px; height: 50px; border-radius: 50%;
-      display: flex; align-items: center; justify-content: center; cursor: pointer;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.4); font-size: 1.2rem; transition: all 0.3s ease;
+    /* Slider Catalog */
+    .slider-container {
+      margin: 3rem 0; padding: 0 1rem; position: relative;
+      max-width: 1000px; margin-left: auto; margin-right: auto;
     }
-    .dark-toggle:hover { transform: scale(1.1); }
-    body.light-mode .dark-toggle { background: #ffd700; color: #333; }
+    .slider {
+      position: relative; overflow: hidden; border-radius: 25px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.7); border: 3px solid #ffd700;
+    }
+    .slides {
+      display: flex; transition: transform 0.6s ease-in-out;
+    }
+    .slide {
+      min-width: 100%; position: relative;
+    }
+    .slide img {
+      width: 100%; height: 500px; object-fit: cover; display: block;
+    }
+    .caption {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+      padding: 2rem 1.5rem 1.5rem; text-align: center; color: #fff;
+    }
+    .caption h3 {
+      font-family: 'Playfair Display', serif; font-size: 2rem; color: #ffd700;
+      margin-bottom: 0.5rem; text-shadow: 0 0 15px rgba(255,215,0,0.5);
+    }
+    .price-old {
+      font-size: 1.3rem; color: #ff6666; text-decoration: line-through; margin: 0.3rem 0;
+    }
+    .price-new {
+      font-size: 2.2rem; font-weight: 700; color: #ffd700; margin: 0.5rem 0;
+      text-shadow: 0 0 15px rgba(255,215,0,0.6);
+    }
+    .discount-badge {
+      display: inline-block; background: #ff3333; color: #fff;
+      padding: 0.4rem 1rem; border-radius: 30px; font-weight: bold; font-size: 1rem;
+      box-shadow: 0 4px 10px rgba(255,0,0,0.4);
+    }
+
+    /* Slider Controls */
+    .prev, .next {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      background: rgba(0,0,0,0.6); color: #fff; width: 50px; height: 50px;
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem; cursor: pointer; z-index: 10; transition: all 0.3s ease;
+    }
+    .prev { left: 15px; }
+    .next { right: 15px; }
+    .prev:hover, .next:hover { background: #ffd700; color: #333; transform: translateY(-50%) scale(1.1); }
+
+    /* Dots */
+    .dots {
+      text-align: center; margin-top: 1rem;
+    }
+    .dot {
+      display: inline-block; width: 12px; height: 12px; margin: 0 6px;
+      background: #555; border-radius: 50%; cursor: pointer; transition: all 0.3s ease;
+    }
+    .dot.active { background: #ffd700; transform: scale(1.3); }
 
     /* Floating WA */
     .wa-float {
@@ -57,10 +107,19 @@
       background: #25d366; color: #fff; width: 60px; height: 60px; border-radius: 50%;
       display: flex; align-items: center; justify-content: center; font-size: 1.8rem;
       box-shadow: 0 5px 20px rgba(37,211,102,0.5); animation: pulse 2s infinite;
-      transition: all 0.3s ease;
     }
     .wa-float:hover { transform: scale(1.15); }
     @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(37,211,102,0.7); } 70% { box-shadow: 0 0 0 15px rgba(37,211,102,0); } 100% { box-shadow: 0 0 0 0 rgba(37,211,102,0); } }
+
+    /* Dark Mode Toggle */
+    .dark-toggle {
+      position: fixed; bottom: 20px; right: 20px; z-index: 1000;
+      background: #333; color: #fff; width: 50px; height: 50px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center; cursor: pointer;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.4); font-size: 1.2rem;
+    }
+    .dark-toggle:hover { transform: scale(1.1); }
+    body.light-mode .dark-toggle { background: #ffd700; color: #333; }
 
     /* Back to Top */
     .back-top {
@@ -70,31 +129,6 @@
       box-shadow: 0 5px 15px rgba(255,215,0,0.4); cursor: pointer;
     }
     .back-top.show { display: flex; }
-
-    /* Catalog Grid */
-    .catalog-grid {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin: 3rem 0; padding: 0 1rem;
-    }
-    .catalog-card {
-      background: rgba(26,26,26,0.88); border-radius: 22px; overflow: hidden;
-      box-shadow: 0 15px 35px rgba(0,0,0,0.7); border: 1px solid rgba(255,215,0,0.25);
-      transition: all 0.4s ease; position: relative;
-    }
-    body.light-mode .catalog-card { background: rgba(255,255,255,0.95); }
-    .catalog-card:hover { transform: translateY(-12px); box-shadow: 0 25px 50px rgba(255,215,0,0.3); }
-    .catalog-card img {
-      width: 100%; height: 220px; object-fit: cover; border-bottom: 3px solid #ffd700;
-      background: #333; /* Skeleton */
-    }
-    .catalog-text {
-      padding: 1.2rem; text-align: center;
-    }
-    .catalog-text h1 { 
-      font-family: 'Playfair Display', serif; font-size: 1.8rem; color: #ffd700; 
-      margin-bottom: 0.4rem; text-shadow: 0 0 12px rgba(255,215,0,0.4);
-    }
-    .catalog-text p { font-size: 1rem; color: #fff; }
-    body.light-mode .catalog-text p { color: #555; }
 
     /* Footer */
     .footer { 
@@ -108,14 +142,16 @@
     @media (max-width: 768px) {
       .header { padding: 1rem; flex-direction: column; gap: 0.8rem; text-align: center; }
       .logo img { max-height: 50px; max-width: 160px; }
-      .catalog-grid { grid-template-columns: 1fr 1fr; gap: 1rem; }
-      .catalog-card img { height: 160px; }
-      .catalog-text h1 { font-size: 1.4rem; }
+      .slide img { height: 350px; }
+      .caption h3 { font-size: 1.6rem; }
+      .price-new { font-size: 1.8rem; }
+      .prev, .next { width: 40px; height: 40px; font-size: 1.2rem; }
       .wa-float, .dark-toggle, .back-top { width: 50px; height: 50px; font-size: 1.4rem; }
     }
     @media (max-width: 480px) {
-      .catalog-grid { grid-template-columns: 1fr; }
-      .catalog-card img { height: 180px; }
+      .slide img { height: 280px; }
+      .caption h3 { font-size: 1.4rem; }
+      .price-new { font-size: 1.6rem; }
     }
   </style>
 </head>
@@ -133,28 +169,45 @@
     </div>
   </header>
 
-  <!-- Catalog Grid -->
-  <div class="catalog-grid">
-    <div class="catalog-card">
-      <img src="https://raw.githubusercontent.com/fikazibrana/toko/e5073bc488f8dee7b55bfec12dd2d80fea66b6f2/DSCF3783.jpg" alt="Catalog 1">
-      <div class="catalog-text">
-        <h1>Premium Item</h1>
-        <p>Rp 85.000</p>
+  <!-- Slider Catalog -->
+  <div class="slider-container">
+    <div class="slider">
+      <div class="slides" id="slides">
+        <div class="slide">
+          <img src="https://raw.githubusercontent.com/fikazibrana/toko/e5073bc488f8dee7b55bfec12dd2d80fea66b6f2/DSCF3783.jpg" alt="Slide 1">
+          <div class="caption">
+            <h3>Special Price & Premium</h3>
+            <p class="price-old">Rp 149.000</p>
+            <p class="price-new">Rp 85.000</p>
+            <span class="discount-badge">-43%</span>
+          </div>
+        </div>
+        <div class="slide">
+          <img src="https://raw.githubusercontent.com/fikazibrana/toko/e5073bc488f8dee7b55bfec12dd2d80fea66b6f2/DSCF3794-3.jpg" alt="Slide 2">
+          <div class="caption">
+            <h3>Special Price & Premium</h3>
+            <p class="price-old">Rp 149.000</p>
+            <p class="price-new">Rp 85.000</p>
+            <span class="discount-badge">-43%</span>
+          </div>
+        </div>
+        <div class="slide">
+          <img src="https://raw.githubusercontent.com/fikazibrana/toko/3556447994eb41a9798b4dcfcd801191068059f6/DSCF3810.jpg" alt="Slide 3">
+          <div class="caption">
+            <h3>Special Price & Premium</h3>
+            <p class="price-old">Rp 149.000</p>
+            <p class="price-new">Rp 85.000</p>
+            <span class="discount-badge">-43%</span>
+          </div>
+        </div>
       </div>
+      <div class="prev" onclick="changeSlide(-1)">❮</div>
+      <div class="next" onclick="changeSlide(1)">❯</div>
     </div>
-    <div class="catalog-card">
-      <img src="https://raw.githubusercontent.com/fikazibrana/toko/e5073bc488f8dee7b55bfec12dd2d80fea66b6f2/DSCF3794-3.jpg" alt="Catalog 2">
-      <div class="catalog-text">
-        <h1>Edisi Spesial</h1>
-        <p>Rp 85.000</p>
-      </div>
-    </div>
-    <div class="catalog-card">
-      <img src="https://raw.githubusercontent.com/fikazibrana/toko/3556447994eb41a9798b4dcfcd801191068059f6/DSCF3810.jpg" alt="Catalog 3">
-      <div class="catalog-text">
-        <h1>Diskon 43%</h1>
-        <p>Dari Rp 149.000</p>
-      </div>
+    <div class="dots">
+      <span class="dot active" onclick="currentSlide(0)"></span>
+      <span class="dot" onclick="currentSlide(1)"></span>
+      <span class="dot" onclick="currentSlide(2)"></span>
     </div>
   </div>
 
@@ -166,7 +219,7 @@
 </div>
 
 <!-- Floating WA -->
-<a href="https://wa.me/6281973174906?text=Halo%20Admin%20DewaRuci" class="wa-float" target="_blank">
+<a href="https://wa.me/6281973174906?text=Halo%20Admin%20DewaRuci,%20saya%20mau%20pesan%20dengan%20harga%20special!" class="wa-float" target="_blank">
   <i class="fab fa-whatsapp"></i>
 </a>
 
@@ -181,6 +234,37 @@
 </div>
 
 <script>
+  let slideIndex = 0;
+  const slides = document.querySelectorAll('.slide');
+  const dots = document.querySelectorAll('.dot');
+  let autoSlide;
+
+  function showSlide(n) {
+    slideIndex = (n + slides.length) % slides.length;
+    document.getElementById('slides').style.transform = `translateX(-${slideIndex * 100}%)`;
+    dots.forEach((dot, i) => dot.classList.toggle('active', i === slideIndex));
+  }
+
+  function changeSlide(n) {
+    clearInterval(autoSlide);
+    showSlide(slideIndex + n);
+    startAutoSlide();
+  }
+
+  function currentSlide(n) {
+    clearInterval(autoSlide);
+    showSlide(n);
+    startAutoSlide();
+  }
+
+  function startAutoSlide() {
+    autoSlide = setInterval(() => changeSlide(1), 5000);
+  }
+
+  // Init
+  showSlide(slideIndex);
+  startAutoSlide();
+
   // Dark Mode
   function toggleMode() {
     document.body.classList.toggle('light-mode');
@@ -192,15 +276,10 @@
   if (localStorage.getItem('mode') === 'light') toggleMode();
 
   // Back to Top
-  window.onscroll = function() {
+  window.onscroll = () => {
     document.querySelector('.back-top').classList.toggle('show', window.scrollY > 300);
   };
   function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
-
-  // Image Loading Skeleton
-  document.querySelectorAll('img').forEach(img => {
-    img.onload = () => img.style.background = 'transparent';
-  });
 </script>
 
 </body>
