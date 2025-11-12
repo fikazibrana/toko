@@ -3,290 +3,390 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>DewaRuci.std - Premium Cotton & Special Price</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <title>Stick Fight</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600;700&display=swap');
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { 
-      font-family: 'Inter', sans-serif; 
-      background: #0a0a0a url('https://raw.githubusercontent.com/fikazibrana/toko/e5073bc488f8dee7b55bfec12dd2d80fea66b6f2/DSCF3794-3.jpg') no-repeat center center fixed;
-      background-size: cover; color: #e0e0e0; line-height: 1.7; position: relative;
-      overflow-x: hidden;
+    body {
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(to bottom, #87CEEB, #E0F7FA);
+      overflow: hidden;
+      touch-action: none;
+      user-select: none;
     }
-    body::before {
-      content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-      background: linear-gradient(135deg, rgba(0,0,0,0.85), rgba(0,0,0,0.7)); backdrop-filter: blur(5px); z-index: -1;
+    #game-container {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
     }
-
-    /* FULL WIDTH HEADER */
-    .header {
-      width: 100vw; margin-left: calc(-50vw + 50%); 
-      display: flex; justify-content: space-between; align-items: center;
-      padding: 1.2rem 3rem; background: rgba(15,15,15,0.95); backdrop-filter: blur(20px);
-      border-bottom: 1px solid rgba(255,215,0,0.3); box-shadow: 0 8px 30px rgba(0,0,0,0.5);
-      position: relative; left: 0;
+    canvas {
+      display: block;
+      background: #f0f0f0;
+      image-rendering: pixelated;
     }
-    .header .container {
-      max-width: 1400px; margin: 0 auto; width: 100%; display: flex; justify-content: space-between; align-items: center;
+    #controls {
+      position: absolute;
+      bottom: 20px;
+      left: 20px;
+      display: flex;
+      gap: 15px;
+      z-index: 10;
     }
-    .logo img { 
-      height: auto; max-height: 58px; max-width: 180px; object-fit: contain;
-      filter: drop-shadow(0 0 12px rgba(255,215,0,0.4));
+    .btn {
+      width: 70px;
+      height: 70px;
+      background: rgba(0,0,0,0.6);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: bold;
+      font-size: 14px;
+      touch-action: none;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
     }
-    .contact-info { font-size: 0.95rem; text-align: right; }
-    .contact-info a { color: #25d366; text-decoration: none; font-weight: 600; }
-
-    /* MARQUEE DI BAWAH HEADER */
-    .marquee {
-      width: 100vw; margin-left: calc(-50vw + 50%);
-      background: linear-gradient(90deg, #ffd700, #ffaa00); color: #000; padding: 0.6rem 0;
-      font-weight: 600; font-size: 0.95rem; text-align: center; overflow: hidden; white-space: nowrap;
-      box-shadow: 0 4px 15px rgba(255,215,0,0.3); position: relative;
+    #joystick-container {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+      width: 120px;
+      height: 120px;
+      z-index: 10;
     }
-    .marquee span {
-      display: inline-block; padding-left: 100%; animation: marquee 18s linear infinite;
+    #joystick-base {
+      width: 120px;
+      height: 120px;
+      background: rgba(0,0,0,0.3);
+      border-radius: 50%;
+      position: relative;
     }
-    @keyframes marquee {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(-100%); }
+    #joystick-knob {
+      width: 50px;
+      height: 50px;
+      background: rgba(255,255,255,0.8);
+      border-radius: 50%;
+      position: absolute;
+      top: 35px;
+      left: 35px;
+      transition: none;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.4);
     }
-
-    /* MAIN CONTENT */
-    .main-content { 
-      max-width: 1400px; margin: 3rem auto; padding: 0 1rem; 
+    #health-container {
+      position: absolute;
+      top: 20px;
+      left: 0;
+      right: 0;
+      display: flex;
+      justify-content: space-between;
+      padding: 0 30px;
+      z-index: 10;
     }
-
-    /* Slider */
-    .slider-container {
-      margin: 0 auto; max-width: 1000px; position: relative; border-radius: 28px;
-      overflow: hidden; box-shadow: 0 25px 60px rgba(0,0,0,0.6); border: 2px solid rgba(255,215,0,0.2);
+    .health-bar {
+      width: 40%;
+      height: 20px;
+      background: #333;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.3);
     }
-    .slides {
-      display: flex; transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+    .health {
+      height: 100%;
+      width: 100%;
+      background: #4CAF50;
+      transition: width 0.3s;
     }
-    .slide {
-      min-width: 100%; position: relative;
+    .health.red { background: #F44336; }
+    #p1-label, #p2-label {
+      text-align: center;
+      color: white;
+      font-weight: bold;
+      margin-bottom: 5px;
+      text-shadow: 1px 1px 2px black;
     }
-    .slide img {
-      width: 100%; height: 520px; object-fit: cover; display: block;
+    #game-over {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(0,0,0,0.8);
+      color: white;
+      padding: 20px 40px;
+      border-radius: 15px;
+      font-size: 24px;
+      text-align: center;
+      display: none;
+      z-index: 20;
     }
-    .caption {
-      position: absolute; bottom: 0; left: 0; right: 0;
-      background: linear-gradient(to top, rgba(0,0,0,0.95), transparent);
-      padding: 2.5rem 2rem 2rem; text-align: center;
-    }
-    .caption h3 {
-      font-family: 'Playfair Display', serif; font-size: 2.3rem; color: #ffd700;
-      margin-bottom: 0.6rem; letter-spacing: 1px; text-shadow: 0 0 20px rgba(255,215,0,0.5);
-    }
-    .price-old {
-      font-size: 1.4rem; color: #ff6b6b; text-decoration: line-through; margin: 0.4rem 0;
-      font-weight: 500;
-    }
-    .price-new {
-      font-size: 2.5rem; font-weight: 700; color: #ffd700; margin: 0.6rem 0;
-      text-shadow: 0 0 20px rgba(255,215,0,0.6);
-    }
-    .discount-badge {
-      display: inline-block; background: #ff3333; color: #fff;
-      padding: 0.5rem 1.3rem; border-radius: 50px; font-weight: bold; font-size: 1.1rem;
-      box-shadow: 0 5px 15px rgba(255,51,51,0.4);
-    }
-    .action-btn {
-      display: inline-block; margin-top: 1rem; padding: 0.9rem 2rem;
-      background: linear-gradient(135deg, #25d366, #128c7e); color: #fff;
-      border-radius: 50px; text-decoration: none; font-weight: 600; font-size: 1.1rem;
-      box-shadow: 0 6px 20px rgba(37,211,102,0.4); transition: all 0.4s ease;
-    }
-    .action-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 25px rgba(37,211,102,0.5); }
-
-    /* Controls */
-    .prev, .next {
-      position: absolute; top: 50%; transform: translateY(-50%);
-      background: rgba(0,0,0,0.7); color: #fff; width: 48px; height: 48px;
-      border-radius: 50%; display: flex; align-items: center; justify-content: center;
-      font-size: 1.4rem; cursor: pointer; z-index: 10; transition: all 0.3s ease;
-      backdrop-filter: blur(10px);
-    }
-    .prev { left: 18px; }
-    .next { right: 18px; }
-    .prev:hover, .next:hover { background: #ffd700; color: #333; transform: translateY(-50%) scale(1.15); }
-
-    /* Dots */
-    .dots {
-      text-align: center; margin-top: 1.2rem;
-    }
-    .dot {
-      display: inline-block; width: 13px; height: 13px; margin: 0 7px;
-      background: rgba(255,255,255,0.4); border-radius: 50%; cursor: pointer; transition: all 0.3s ease;
-    }
-    .dot.active { background: #ffd700; transform: scale(1.4); box-shadow: 0 0 15px rgba(255,215,0,0.6); }
-
-    /* Floating Buttons */
-    .float-btn {
-      position: fixed; bottom: 20px; z-index: 1000;
-      width: 52px; height: 52px; border-radius: 50%;
-      display: flex; align-items: center; justify-content: center; font-size: 1.5rem;
-      color: #fff; box-shadow: 0 6px 20px rgba(0,0,0,0.4); transition: all 0.3s ease;
-    }
-    .float-btn:hover { transform: scale(1.18); }
-    .wa-btn { right: 20px; background: #25d366; }
-    .ig-btn { right: 82px; background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
-
-    /* Back to Top */
-    .back-top {
-      position: fixed; bottom: 20px; left: 20px; z-index: 1000;
-      background: #ffd700; color: #333; width: 48px; height: 48px; border-radius: 50%;
-      display: none; align-items: center; justify-content: center; font-size: 1.3rem;
-      box-shadow: 0 6px 18px rgba(255,215,0,0.5); cursor: pointer;
-    }
-    .back-top.show { display: flex; }
-
-    /* FULL WIDTH FOOTER */
-    .footer {
-      width: 100vw; margin-left: calc(-50vw + 50%);
-      background: rgba(10,10,10,0.98); padding: 3rem 3rem 2rem; text-align: center;
-      border-top: 1px solid rgba(255,215,0,0.2); backdrop-filter: blur(15px);
-      font-size: 0.95rem; color: #aaa; position: relative;
-    }
-    .footer .container {
-      max-width: 1400px; margin: 0 auto; width: 100%;
-    }
-    .footer a { color: #25d366; text-decoration: none; font-weight: 500; }
-
-    /* Responsive */
-    @media (max-width: 768px) {
-      .header, .marquee, .footer { padding-left: 1rem; padding-right: 1rem; }
-      .header .container, .footer .container { padding: 0; }
-      .slide img { height: 380px; }
-      .caption h3 { font-size: 1.8rem; }
-      .price-new { font-size: 2rem; }
-      .prev, .next { width: 42px; height: 42px; font-size: 1.2rem; }
-      .float-btn { width: 48px; height: 48px; font-size: 1.3rem; }
-      .ig-btn { right: 76px; }
-    }
-    @media (max-width: 480px) {
-      .slide img { height: 300px; }
-      .caption h3 { font-size: 1.5rem; }
-      .price-new { font-size: 1.7rem; }
-      .action-btn { padding: 0.8rem 1.6rem; font-size: 1rem; }
+    #restart-btn {
+      margin-top: 15px;
+      padding: 10px 20px;
+      background: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
     }
   </style>
 </head>
 <body>
+  <div id="game-container">
+    <canvas id="gameCanvas"></canvas>
 
-<!-- FULL WIDTH HEADER -->
-<header class="header">
-  <div class="container">
-    <div class="logo">
-      <img src="https://raw.githubusercontent.com/fikazibrana/toko/e5073bc488f8dee7b55bfec12dd2d80fea66b6f2/BACK.png" alt="DewaRuci Logo">
-    </div>
-    <div class="contact-info">
-      <div>Admin DewaRuci</div>
-      <a href="https://wa.me/6281973174906">+62 819-7317-4906</a>
-    </div>
-  </div>
-</header>
-
-<!-- MARQUEE DI BAWAH HEADER -->
-<div class="marquee">
-  <span>Special Price Catalog DewaRuci — Premium Cotton 100% — Diskon Hingga 43% — Hanya di dewaruci.std!</span>
-</div>
-
-<!-- MAIN CONTENT -->
-<div class="main-content">
-  <!-- Slider -->
-  <div class="slider-container">
-    <div class="slides" id="slides">
-      <!-- Slide 1 -->
-      <div class="slide">
-        <img src="https://raw.githubusercontent.com/fikazibrana/toko/e5073bc488f8dee7b55bfec12dd2d80fea66b6f2/DSCF3783.jpg" alt="Premium Cotton">
-        <div class="caption">
-          <h3>Premium Cotton 100%</h3>
-          <p class="price-old">Rp 149.000</p>
-          <p class="price-new">Rp 85.000</p>
-          <span class="discount-badge">-43%</span>
-        </div>
+    <!-- Health Bars -->
+    <div id="health-container">
+      <div>
+        <div id="p1-label">Player 1</div>
+        <div class="health-bar"><div id="p1-health" class="health"></div></div>
       </div>
-      <!-- Slide 2 -->
-      <div class="slide">
-        <img src="https://raw.githubusercontent.com/fikazibrana/toko/e5073bc488f8dee7b55bfec12dd2d80fea66b6f2/DSCF3794-3.jpg" alt="Special Price">
-        <div class="caption">
-          <h3>Special Price</h3>
-          <p class="price-old">Rp 149.000</p>
-          <p class="price-new">Rp 85.000</p>
-          <span class="discount-badge">Limited Offer</span>
-        </div>
-      </div>
-      <!-- Slide 3 -->
-      <div class="slide">
-        <img src="https://raw.githubusercontent.com/fikazibrana/toko/3556447994eb41a9798b4dcfcd801191068059f6/DSCF3810.jpg" alt="Pesan Sekarang">
-        <div class="caption">
-          <h3>Pesan Sekarang</h3>
-          <p class="price-old">Rp 149.000</p>
-          <p class="price-new">Rp 85.000</p>
-          <a href="https://wa.me/6281973174906?text=Saya%20%5Bnama%5D%2C%20asal%20%5Bkota%5D%2C%20ingin%20memesan%20kaos%20dewaruci.std%20catalog%20pertama." 
-             class="action-btn" target="_blank">Pesan via WhatsApp</a>
-        </div>
+      <div>
+        <div id="p2-label">Player 2</div>
+        <div class="health-bar"><div id="p2-health" class="health red"></div></div>
       </div>
     </div>
-    <div class="prev" onclick="changeSlide(-1)">❮</div>
-    <div class="next" onclick="changeSlide(1)">❯</div>
-    <div class="dots">
-      <span class="dot active" onclick="currentSlide(0)"></span>
-      <span class="dot" onclick="currentSlide(1)"></span>
-      <span class="dot" onclick="currentSlide(2)"></span>
+
+    <!-- Controls -->
+    <div id="controls">
+      <div class="btn" id="punch-btn">PUNCH</div>
+      <div class="btn" id="kick-btn">KICK</div>
+    </div>
+
+    <!-- Joystick -->
+    <div id="joystick-container">
+      <div id="joystick-base">
+        <div id="joystick-knob"></div>
+      </div>
+    </div>
+
+    <!-- Game Over -->
+    <div id="game-over">
+      <div id="winner-text"></div>
+      <button id="restart-btn">Main Lagi</button>
     </div>
   </div>
-</div>
 
-<!-- FULL WIDTH FOOTER -->
-<footer class="footer">
-  <div class="container">
-    <p>© 2025 DewaRuci.std — Handcrafted with Love in Yogyakarta</p>
-    <p>Kontak: <a href="https://wa.me/6281973174906">Admin DewaRuci - 081973174906</a></p>
-  </div>
-</footer>
+  <script>
+    // Canvas setup
+    const canvas = document.getElementById('gameCanvas');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
 
-<!-- Floating Buttons -->
-<a href="https://wa.me/6281973174906?text=Saya%20mau%20pesan%20kaos%20dewaruci.std" class="float-btn wa-btn" target="_blank">
-  <i class="fab fa-whatsapp"></i>
-</a>
-<a href="https://instagram.com/dewaruci.std" class="float-btn ig-btn" target="_blank">
-  <i class="fab fa-instagram"></i>
-</a>
+    // Game state
+    const game = {
+      player1: { x: 150, y: canvas.height - 200, health: 100, facing: 'right', punching: false, kicking: false },
+      player2: { x: canvas.width - 200, y: canvas.height - 200, health: 100, facing: 'left' },
+      joystick: { active: false, x: 0, y: 0 },
+      gameOver: false
+    };
 
-<!-- Back to Top -->
-<div class="back-top" onclick="scrollToTop()">
-  <i class="fas fa-arrow-up"></i>
-</div>
+    // Resize canvas
+    window.addEventListener('resize', () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      game.player2.x = canvas.width - 200;
+    });
 
-<script>
-  let slideIndex = 0;
-  const slides = document.querySelectorAll('.slide');
-  const dots = document.querySelectorAll('.dot');
-  let autoSlide;
+    // Stickman drawing function
+    function drawStickman(x, y, facing, punching = false, kicking = false, color = '#333') {
+      ctx.strokeStyle = color;
+      ctx.lineWidth = 4;
+      ctx.lineCap = 'round';
 
-  function showSlide(n) {
-    slideIndex = (n + slides.length) % slides.length;
-    document.getElementById('slides').style.transform = `translateX(-${slideIndex * 100}%)`;
-    dots.forEach((dot, i) => dot.classList.toggle('active', i === slideIndex));
-  }
+      // Head
+      ctx.beginPath();
+      ctx.arc(x, y - 80, 20, 0, Math.PI * 2);
+      ctx.stroke();
 
-  function changeSlide(n) { clearInterval(autoSlide); showSlide(slideIndex + n); startAutoSlide(); }
-  function currentSlide(n) { clearInterval(autoSlide); showSlide(n); startAutoSlide(); }
-  function startAutoSlide() { autoSlide = setInterval(() => changeSlide(1), 6000); }
+      // Body
+      ctx.beginPath();
+      ctx.moveTo(x, y - 60);
+      ctx.lineTo(x, y - 10);
+      ctx.stroke();
 
-  showSlide(slideIndex);
-  startAutoSlide();
+      // Arms
+      const armAngle = punching ? (facing === 'right' ? -1.2 : 1.2) : 0.3;
+      const armX = facing === 'right' ? x + 10 : x - 10;
+      ctx.beginPath();
+      ctx.moveTo(x, y - 50);
+      ctx.lineTo(armX + (facing === 'right' ? 30 : -30) * Math.cos(armAngle), y - 50 + 30 * Math.sin(armAngle));
+      ctx.stroke();
 
-  window.onscroll = () => {
-    document.querySelector('.back-top').classList.toggle('show', window.scrollY > 300);
-  };
-  function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
-</script>
+      ctx.beginPath();
+      ctx.moveTo(x, y - 50);
+      ctx.lineTo(armX - (facing === 'right' ? 20 : -20), y - 30);
+      ctx.stroke();
 
+      // Legs
+      const legOffset = kicking ? 25 : 15;
+      ctx.beginPath();
+      ctx.moveTo(x, y - 10);
+      ctx.lineTo(x - 20, y + legOffset);
+      ctx.stroke();
+
+      ctx.beginPath();
+      ctx.moveTo(x, y - 10);
+      ctx.lineTo(x + 20, y + legOffset);
+      ctx.stroke();
+    }
+
+    // Update health bars
+    function updateHealth() {
+      document.getElementById('p1-health').style.width = game.player1.health + '%';
+      document.getElementById('p2-health').style.width = game.player2.health + '%';
+    }
+
+    // Check collision
+    function checkHit(attacker, defender, range = 80) {
+      const dist = Math.abs(attacker.x - defender.x);
+      return dist < range && attacker.punching || attacker.kicking;
+    }
+
+    // Game loop
+    function gameLoop() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // Ground
+      ctx.fillStyle = '#8BC34A';
+      ctx.fillRect(0, canvas.height - 100, canvas.width, 100);
+
+      // Update Player 1 movement from joystick
+      if (game.joystick.active) {
+        const dx = game.joystick.x;
+        if (Math.abs(dx) > 20) {
+          game.player1.x += dx * 0.3;
+          game.player1.facing = dx > 0 ? 'right' : 'left';
+        }
+        game.player1.x = Math.max(50, Math.min(canvas.width - 50, game.player1.x));
+      }
+
+      // AI simple untuk Player 2 (mengikuti Player 1)
+      if (!game.gameOver) {
+        const diff = game.player1.x - game.player2.x;
+        if (Math.abs(diff) > 100) {
+          game.player2.x += diff > 0 ? 1.5 : -1.5;
+          game.player2.facing = diff > 0 ? 'right' : 'left';
+        }
+
+        // AI attack
+        if (Math.abs(diff) < 90 && Math.random() < 0.02) {
+          game.player2.punching = true;
+          setTimeout(() => game.player2.punching = false, 300);
+          if (checkHit(game.player2, game.player1)) {
+            game.player1.health = Math.max(0, game.player1.health - 10);
+            updateHealth();
+          }
+        }
+        if (Math.abs(diff) < 100 && Math.random() < 0.015) {
+          game.player2.kicking = true;
+          setTimeout(() => game.player2.kicking = false, 400);
+          if (checkHit(game.player2, game.player1, 100)) {
+            game.player1.health = Math.max(0, game.player1.health - 15);
+            updateHealth();
+          }
+        }
+      }
+
+      // Draw players
+      drawStickman(game.player1.x, game.player1.y, game.player1.facing, game.player1.punching, game.player1.kicking, '#2196F3');
+      drawStickman(game.player2.x, game.player2.y, game.player2.facing, game.player2.punching, game.player2.kicking, '#F44336');
+
+      // Reset attack animations
+      setTimeout(() => {
+        game.player1.punching = false;
+        game.player1.kicking = false;
+      }, 300);
+
+      // Check game over
+      if (game.player1.health <= 0 || game.player2.health <= 0) {
+        game.gameOver = true;
+        document.getElementById('winner-text').textContent = 
+          game.player1.health <= 0 ? 'Player 2 Menang!' : 'Player 1 Menang!';
+        document.getElementById('game-over').style.display = 'block';
+      }
+
+      requestAnimationFrame(gameLoop);
+    }
+
+    // Controls
+    document.getElementById('punch-btn').addEventListener('touchstart', (e) => {
+      e.preventDefault();
+      if (!game.gameOver) {
+        game.player1.punching = true;
+        if (checkHit(game.player1, game.player2)) {
+          game.player2.health = Math.max(0, game.player2.health - 12);
+          updateHealth();
+        }
+      }
+    });
+
+    document.getElementById('kick-btn').addEventListener('touchstart', (e) => {
+      e.preventDefault();
+      if (!game.gameOver) {
+        game.player1.kicking = true;
+        if (checkHit(game.player1, game.player2, 100)) {
+          game.player2.health = Math.max(0, game.player2.health - 18);
+          updateHealth();
+        }
+      }
+    });
+
+    // Joystick
+    const joystickBase = document.getElementById('joystick-base');
+    const knob = document.getElementById('joystick-knob');
+    let joystickCenter = {};
+
+    function getOffset(el) {
+      const rect = el.getBoundingClientRect();
+      return { x: rect.left + 60, y: rect.top + 60 };
+    }
+
+    joystickBase.addEventListener('touchstart', (e) => {
+      e.preventDefault();
+      game.joystick.active = true;
+      joystickCenter = getOffset(joystickBase);
+    });
+
+    document.addEventListener('touchmove', (e) => {
+      if (game.joystick.active) {
+        const touch = e.touches[0];
+        const dx = touch.clientX - joystickCenter.x;
+        const dy = touch.clientY - joystickCenter.y;
+        const dist = Math.min(35, Math.sqrt(dx*dx + dy*dy));
+        const angle = Math.atan2(dy, dx);
+        game.joystick.x = dist * Math.cos(angle);
+        game.joystick.y = dist * Math.sin(angle);
+
+        knob.style.left = (55 + game.joystick.x) + 'px';
+        knob.style.top = (55 + game.joystick.y) + 'px';
+      }
+    });
+
+    document.addEventListener('touchend', () => {
+      if (game.joystick.active) {
+        game.joystick.active = false;
+        game.joystick.x = 0;
+        game.joystick.y = 0;
+        knob.style.left = '35px';
+        knob.style.top = '35px';
+      }
+    });
+
+    // Restart
+    document.getElementById('restart-btn').addEventListener('click', () => {
+      game.player1.health = 100;
+      game.player2.health = 100;
+      game.player1.x = 150;
+      game.player2.x = canvas.width - 200;
+      game.gameOver = false;
+      updateHealth();
+      document.getElementById('game-over').style.display = 'none';
+    });
+
+    // Start game
+    updateHealth();
+    gameLoop();
+  </script>
 </body>
 </html>
