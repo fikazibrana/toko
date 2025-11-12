@@ -20,13 +20,30 @@
       background: linear-gradient(135deg, rgba(0,0,0,0.85), rgba(0,0,0,0.7)); backdrop-filter: blur(5px); z-index: -1;
     }
 
-    .container { max-width: 1400px; margin: 0 auto; padding: 0 1rem; }
+    /* FULL WIDTH HEADER */
+    .header {
+      width: 100vw; margin-left: calc(-50vw + 50%); 
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.2rem 3rem; background: rgba(15,15,15,0.95); backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255,215,0,0.3); box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+      position: relative; left: 0;
+    }
+    .header .container {
+      max-width: 1400px; margin: 0 auto; width: 100%; display: flex; justify-content: space-between; align-items: center;
+    }
+    .logo img { 
+      height: auto; max-height: 58px; max-width: 180px; object-fit: contain;
+      filter: drop-shadow(0 0 12px rgba(255,215,0,0.4));
+    }
+    .contact-info { font-size: 0.95rem; text-align: right; }
+    .contact-info a { color: #25d366; text-decoration: none; font-weight: 600; }
 
-    /* Marquee */
+    /* MARQUEE DI BAWAH HEADER */
     .marquee {
+      width: 100vw; margin-left: calc(-50vw + 50%);
       background: linear-gradient(90deg, #ffd700, #ffaa00); color: #000; padding: 0.6rem 0;
       font-weight: 600; font-size: 0.95rem; text-align: center; overflow: hidden; white-space: nowrap;
-      box-shadow: 0 4px 15px rgba(255,215,0,0.3);
+      box-shadow: 0 4px 15px rgba(255,215,0,0.3); position: relative;
     }
     .marquee span {
       display: inline-block; padding-left: 100%; animation: marquee 18s linear infinite;
@@ -36,22 +53,14 @@
       100% { transform: translateX(-100%); }
     }
 
-    /* Header - MENEMPEL */
-    .header {
-      display: flex; justify-content: space-between; align-items: center;
-      padding: 1.2rem 2rem; background: rgba(15,15,15,0.95); backdrop-filter: blur(20px);
-      border-bottom: 1px solid rgba(255,215,0,0.3); box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+    /* MAIN CONTENT */
+    .main-content { 
+      max-width: 1400px; margin: 3rem auto; padding: 0 1rem; 
     }
-    .logo img { 
-      height: auto; max-height: 58px; max-width: 180px; object-fit: contain;
-      filter: drop-shadow(0 0 12px rgba(255,215,0,0.4));
-    }
-    .contact-info { font-size: 0.95rem; text-align: right; }
-    .contact-info a { color: #25d366; text-decoration: none; font-weight: 600; }
 
     /* Slider */
     .slider-container {
-      margin: 3rem auto; max-width: 1000px; position: relative; border-radius: 28px;
+      margin: 0 auto; max-width: 1000px; position: relative; border-radius: 28px;
       overflow: hidden; box-shadow: 0 25px 60px rgba(0,0,0,0.6); border: 2px solid rgba(255,215,0,0.2);
     }
     .slides {
@@ -85,8 +94,6 @@
       padding: 0.5rem 1.3rem; border-radius: 50px; font-weight: bold; font-size: 1.1rem;
       box-shadow: 0 5px 15px rgba(255,51,51,0.4);
     }
-
-    /* Action Buttons di Slide 3 */
     .action-btn {
       display: inline-block; margin-top: 1rem; padding: 0.9rem 2rem;
       background: linear-gradient(135deg, #25d366, #128c7e); color: #fff;
@@ -117,7 +124,7 @@
     }
     .dot.active { background: #ffd700; transform: scale(1.4); box-shadow: 0 0 15px rgba(255,215,0,0.6); }
 
-    /* Floating Buttons - LEBIH KECIL */
+    /* Floating Buttons */
     .float-btn {
       position: fixed; bottom: 20px; z-index: 1000;
       width: 52px; height: 52px; border-radius: 50%;
@@ -137,18 +144,22 @@
     }
     .back-top.show { display: flex; }
 
-    /* Footer - MENEMPEL */
+    /* FULL WIDTH FOOTER */
     .footer {
-      background: rgba(10,10,10,0.98); padding: 3rem 1rem 2rem; text-align: center;
+      width: 100vw; margin-left: calc(-50vw + 50%);
+      background: rgba(10,10,10,0.98); padding: 3rem 3rem 2rem; text-align: center;
       border-top: 1px solid rgba(255,215,0,0.2); backdrop-filter: blur(15px);
-      font-size: 0.95rem; color: #aaa;
+      font-size: 0.95rem; color: #aaa; position: relative;
+    }
+    .footer .container {
+      max-width: 1400px; margin: 0 auto; width: 100%;
     }
     .footer a { color: #25d366; text-decoration: none; font-weight: 500; }
 
     /* Responsive */
     @media (max-width: 768px) {
-      .header { padding: 1rem; flex-direction: column; gap: 0.8rem; text-align: center; }
-      .logo img { max-height: 48px; max-width: 150px; }
+      .header, .marquee, .footer { padding-left: 1rem; padding-right: 1rem; }
+      .header .container, .footer .container { padding: 0; }
       .slide img { height: 380px; }
       .caption h3 { font-size: 1.8rem; }
       .price-new { font-size: 2rem; }
@@ -166,14 +177,9 @@
 </head>
 <body>
 
-<!-- Marquee -->
-<div class="marquee">
-  <span>Special Price Catalog DewaRuci — Premium Cotton 100% — Diskon Hingga 43% — Hanya di dewaruci.std!</span>
-</div>
-
-<div class="container">
-  <!-- Header -->
-  <header class="header">
+<!-- FULL WIDTH HEADER -->
+<header class="header">
+  <div class="container">
     <div class="logo">
       <img src="https://raw.githubusercontent.com/fikazibrana/toko/e5073bc488f8dee7b55bfec12dd2d80fea66b6f2/BACK.png" alt="DewaRuci Logo">
     </div>
@@ -181,8 +187,16 @@
       <div>Admin DewaRuci</div>
       <a href="https://wa.me/6281973174906">+62 819-7317-4906</a>
     </div>
-  </header>
+  </div>
+</header>
 
+<!-- MARQUEE DI BAWAH HEADER -->
+<div class="marquee">
+  <span>Special Price Catalog DewaRuci — Premium Cotton 100% — Diskon Hingga 43% — Hanya di dewaruci.std!</span>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="main-content">
   <!-- Slider -->
   <div class="slider-container">
     <div class="slides" id="slides">
@@ -226,13 +240,15 @@
       <span class="dot" onclick="currentSlide(2)"></span>
     </div>
   </div>
+</div>
 
-  <!-- Footer -->
-  <footer class="footer">
+<!-- FULL WIDTH FOOTER -->
+<footer class="footer">
+  <div class="container">
     <p>© 2025 DewaRuci.std — Handcrafted with Love in Yogyakarta</p>
     <p>Kontak: <a href="https://wa.me/6281973174906">Admin DewaRuci - 081973174906</a></p>
-  </footer>
-</div>
+  </div>
+</footer>
 
 <!-- Floating Buttons -->
 <a href="https://wa.me/6281973174906?text=Saya%20mau%20pesan%20kaos%20dewaruci.std" class="float-btn wa-btn" target="_blank">
